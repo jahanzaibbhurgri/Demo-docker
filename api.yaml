@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: Code Improve API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 1.0.0
+
+servers:
+  - url: https://platform.aladdininformatics.com/user-managment-service
+
+paths:
+  /api/register/user:
+    post:
+      summary: Create the user
+      description: Create a new user in the system.
+      tags:
+        - UserController
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userName:
+                  type: string
+                  description: The username of the user.
+                mobileNumber:
+                  type: string
+                  description: The mobileNumber of the user
+              
+              required:
+                - userName
+                - mobileNumber
+      responses:
+        201:
+          description: User created successfully.
+        400:
+          description: Invalid request data.
+        500:
+          description: An error occurred while creating the user.
+
+  /api/login/user:
+    post:
+      summary: Login the user
+      description: Authenticate the user.
+      tags:
+        - UserController
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mobileNumber:
+                  type: string
+                  description: The mobileNumber of the user
+                password:
+                  type: string
+                  description: The password of the user
+              required:
+                - mobileNumber
+                - password
+      responses:
+        201:
+          description: User created successfully.
+        400:
+          description: Invalid request data.
+        500:
+          description: An error occurred while creating the user.
+
+  /api/initiatePasswordReset:
+    post:
+      summary: Initiate password reset
+      description: Initiates the password reset process for a user.
+      tags:
+        - UserController
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mobileNumber:
+                  type: string
+                  description: The mobileNumber of the user
+              required:
+                - mobileNumber
+      responses:
+        200:
+          description: Password reset initiated successfully.
+        401:
+          description: Unable to initiate password reset.
+
+  /api/resendOTP:
+    post:
+      summary: Resend OTP
+      description: Resend the OTP for password reset.
+      tags:
+        - UserController
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mobileNumber:
+                  type: string
+                  description: The mobileNumber of the user
+              required:
+                - mobileNumber
+      responses:
+        200:
+          description: OTP resent successfully.
+        401:
+          description: Unable to resend OTP.
+
+  /api/verifyOTP:
+    post:
+      summary: Verify OTP
+      description: Verify the OTP for password reset and set a new password.
+      tags:
+        - UserController
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mobileNumber:
+                  type: string
+                  description: The mobileNumber of the user
+                userOtp:
+                  type: integer
+                  description: The OTP sent to the user
+                newPassword:
+                  type: string
+                  description: The new password to set
+              required:
+                - mobileNumber
+                - userOtp
+                - newPassword
+      responses:
+        200:
+          description: Password reset successful.
+        401:
+          description: Unable to verify OTP.
+          
+  /api/deleteAllUsers:
+   get:
+    summary: Delete all users
+    description: Delete all users from the database.
+    tags:
+      - UserController
+    responses:
+      200:
+        description: Users deleted successfully.
+      500:
+        description: Failed to delete users.
+  
+  /api/getAllUsers:
+   get:
+    summary: get all of the users
+    description: get  all of the users from the database.
+    tags:
+      - UserController
+    responses:
+      200:
+        description: Users deleted successfully.
+      500:
+        description: Failed to delete users.
