@@ -5,15 +5,15 @@ info:
   version: 1.0.0
 
 servers:
-  - url: https://platform.aladdininformatics.com/user-managment-service
+  - url: http://localhost:30007
 
 paths:
-  /api/register/user:
+  /api/v1/createPermission:
     post:
-      summary: Create the user
-      description: Create a new user in the system.
+      summary: Create the permission
+      description: Create a new permission in the system.
       tags:
-        - UserController
+        - PermissionController
       requestBody:
         required: true
         content:
@@ -21,60 +21,52 @@ paths:
             schema:
               type: object
               properties:
-                userName:
+                userId:
+                  type: number
+                  description: The userId of the user.
+                roleId:
+                  type: number
+                  description: The roleId of the user
+                name:
                   type: string
-                  description: The username of the user.
-                mobileNumber:
+                  description: the name of the permission
+                description:
                   type: string
-                  description: The mobileNumber of the user
+                  description: the description of the permission
               
               required:
-                - userName
-                - mobileNumber
+                - userId
+                - roleId
+                - name
+                - description
       responses:
         201:
-          description: User created successfully.
+          description: Permission created successfully.
         400:
           description: Invalid request data.
         500:
-          description: An error occurred while creating the user.
+          description: An error occurred while creating the permission.
 
-  /api/login/user:
-    post:
-      summary: Login the user
-      description: Authenticate the user.
+  /api/v1/getPermission:
+    get:
+      summary: getting all of the permission
+      description: getting all of the permission.
       tags:
-        - UserController
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                mobileNumber:
-                  type: string
-                  description: The mobileNumber of the user
-                password:
-                  type: string
-                  description: The password of the user
-              required:
-                - mobileNumber
-                - password
+        - PermissionController
       responses:
         201:
-          description: User created successfully.
+          description: Permission created successfully.
         400:
           description: Invalid request data.
         500:
-          description: An error occurred while creating the user.
+          description: An error occurred while creating the permission.
 
-  /api/initiatePasswordReset:
+  /api/v1/deletePermission:
     post:
-      summary: Initiate password reset
-      description: Initiates the password reset process for a user.
+      summary: deletion of the permission
+      description: deletion of the permission.
       tags:
-        - UserController
+        - PermissionController
       requestBody:
         required: true
         content:
@@ -82,23 +74,31 @@ paths:
             schema:
               type: object
               properties:
-                mobileNumber:
+                roleId:
+                   type: number
+                   description: the roleId of the user
+                userId:
+                   type: number
+                   description: the userId of the user
+                name:
                   type: string
-                  description: The mobileNumber of the user
+                  description: The name of the user
               required:
-                - mobileNumber
+                - roleId
+                - userId
+                - name
       responses:
         200:
-          description: Password reset initiated successfully.
+          description: Permission deleted successfully.
         401:
-          description: Unable to initiate password reset.
+          description: Unable to delete the permission.
 
-  /api/resendOTP:
+  /api/v1/updatePermission:
     post:
-      summary: Resend OTP
-      description: Resend the OTP for password reset.
+      summary: to update the permission
+      description: to update the permission.
       tags:
-        - UserController
+        - PermissionController
       requestBody:
         required: true
         content:
@@ -106,69 +106,28 @@ paths:
             schema:
               type: object
               properties:
-                mobileNumber:
+                roleId:
+                   type: number
+                   description: the roleId of the user
+                userId:
+                   type: number
+                   description: the userId of the user
+                name:
                   type: string
-                  description: The mobileNumber of the user
+                  description: The name of the user
+                description:
+                  type: string
+                  description: the description of the permission
               required:
-                - mobileNumber
+                - roleId
+                - userId
+                - name
+                - description
+     
       responses:
         200:
-          description: OTP resent successfully.
+          description: permission updated successfully.
         401:
-          description: Unable to resend OTP.
+          description: Unable to update.
 
-  /api/verifyOTP:
-    post:
-      summary: Verify OTP
-      description: Verify the OTP for password reset and set a new password.
-      tags:
-        - UserController
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                mobileNumber:
-                  type: string
-                  description: The mobileNumber of the user
-                userOtp:
-                  type: integer
-                  description: The OTP sent to the user
-                newPassword:
-                  type: string
-                  description: The new password to set
-              required:
-                - mobileNumber
-                - userOtp
-                - newPassword
-      responses:
-        200:
-          description: Password reset successful.
-        401:
-          description: Unable to verify OTP.
-          
-  /api/deleteAllUsers:
-   get:
-    summary: Delete all users
-    description: Delete all users from the database.
-    tags:
-      - UserController
-    responses:
-      200:
-        description: Users deleted successfully.
-      500:
-        description: Failed to delete users.
   
-  /api/getAllUsers:
-   get:
-    summary: get all of the users
-    description: get  all of the users from the database.
-    tags:
-      - UserController
-    responses:
-      200:
-        description: Users deleted successfully.
-      500:
-        description: Failed to delete users.

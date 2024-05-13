@@ -10,30 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model permission {
   id            Int      @id @default(autoincrement())
-  userName      String   
-  emailAddress  String
-  mobileNumber  String   @unique
-  password      String
-  StoreId       Int
-  role          String   // Add role field
-  otps          Otp[]    // Define one-to-many relationship with OTP
-  tokens        Token[]  // Define one-to-many relationship with Token
-}
-
-
-model Otp {
-  id            Int      @id @default(autoincrement())
-  user          User     @relation(fields: [userId], references: [id])
   userId        Int
-  otp           Int
-  expiresAt     DateTime 
-}
-
-model Token {
-  id            Int      @id @default(autoincrement())
-  user          User     @relation(fields: [userId], references: [id])
-  userId        Int
-  posToken      String
+  roleId        Int  
+  name          String  
+  description   String
+  createdAt     DateTime
+  updatedAt     DateTime
 }

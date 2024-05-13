@@ -1,7 +1,7 @@
 // Import necessary modules and types
 
 import express, { Express, Request, Response } from "express";
-import router from "./routers/user.route";
+import router from "./routers/permission.route";
 import bodyParser from "body-parser";
 import swaggerExport from "./config";
 import cors from "cors"; // Import the cors middleware
@@ -12,7 +12,7 @@ import cors from "cors"; // Import the cors middleware
 // Create an instance of Express
  export const app: Express = express();
 
- const PORT= 30005;
+ const PORT= 30007;
 
  app.use(cors({
   origin: '*',
