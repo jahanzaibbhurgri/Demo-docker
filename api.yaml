@@ -22,49 +22,66 @@ paths:
               type: object
               properties:
                 userId:
-                  type: number
+                  type: integer
                   description: The userId of the user.
                 roleId:
-                  type: number
-                  description: The roleId of the user
+                  type: integer
+                  description: The roleId of the user.
                 name:
                   type: string
-                  description: the name of the permission
+                  description: The name of the permission.
+                typeOfPermission:
+                  type: array
+                  items:
+                    type: string
+                  description: An array of types such as create, get, update, delete.
                 description:
                   type: string
-                  description: the description of the permission
-              
+                  description: The description of the permission.
               required:
                 - userId
                 - roleId
                 - name
+                - typeOfPermission
                 - description
       responses:
-        201:
+        '201':
           description: Permission created successfully.
-        400:
+        '400':
           description: Invalid request data.
-        500:
+        '500':
           description: An error occurred while creating the permission.
 
   /api/v1/getPermission:
-    get:
-      summary: getting all of the permission
-      description: getting all of the permission.
+    post:
+      summary: Get permissions for a user and role
+      description: Get permissions for a user and role.
       tags:
         - PermissionController
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  description: The userId of the user.
+              required:
+                - userId
       responses:
-        201:
-          description: Permission created successfully.
-        400:
+        '200':
+          description: Permissions retrieved successfully.
+        '400':
           description: Invalid request data.
-        500:
-          description: An error occurred while creating the permission.
+        '500':
+          description: An error occurred while retrieving permissions.
 
   /api/v1/deletePermission:
     post:
-      summary: deletion of the permission
-      description: deletion of the permission.
+      summary: Deletion of the permission
+      description: Deletion of the permission.
       tags:
         - PermissionController
       requestBody:
@@ -75,28 +92,28 @@ paths:
               type: object
               properties:
                 roleId:
-                   type: number
-                   description: the roleId of the user
+                  type: integer
+                  description: The roleId of the user.
                 userId:
-                   type: number
-                   description: the userId of the user
+                  type: integer
+                  description: The userId of the user.
                 name:
                   type: string
-                  description: The name of the user
+                  description: The name of the user.
               required:
                 - roleId
                 - userId
                 - name
       responses:
-        200:
+        '200':
           description: Permission deleted successfully.
-        401:
+        '401':
           description: Unable to delete the permission.
 
   /api/v1/updatePermission:
     post:
-      summary: to update the permission
-      description: to update the permission.
+      summary: Update the permission
+      description: Update the permission.
       tags:
         - PermissionController
       requestBody:
@@ -107,27 +124,30 @@ paths:
               type: object
               properties:
                 roleId:
-                   type: number
-                   description: the roleId of the user
+                  type: integer
+                  description: The roleId of the user.
                 userId:
-                   type: number
-                   description: the userId of the user
+                  type: integer
+                  description: The userId of the user.
                 name:
                   type: string
-                  description: The name of the user
+                  description: The name of the user.
+                updatedPermissions:
+                  type: array
+                  items:
+                    type: string
+                  description: An array of types such as create, get, update, delete.
                 description:
                   type: string
-                  description: the description of the permission
+                  description: The description of the permission.
               required:
                 - roleId
                 - userId
                 - name
+                - updatedPermissions
                 - description
-     
       responses:
-        200:
-          description: permission updated successfully.
-        401:
+        '200':
+          description: Permission updated successfully.
+        '401':
           description: Unable to update.
-
-  

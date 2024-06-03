@@ -7,7 +7,7 @@ import * as permissionService from '../service/permissionService'
 export const createPermission = async (req: Request, res: Response) => {
   try {
     const createPermission = await permissionService.createPermission(req.body);
-    res.status(201).json(createPermission);
+    res.status(200).json(createPermission);
   } catch (error) {
     console.error('Error in creating the permission', error);
     res.status(500).json({ error: 'Error in creating the permission' });

@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose the port the app runs on
-EXPOSE 30005
+EXPOSE 30007
 
 # Command to run your application
-CMD ["bash", "-c", "npx prisma generate && npx prisma migrate dev --name "jahanzaib"  && npm uninstall bcrypt && npm install bcrypt && npm start"]
+CMD ["bash", "-c", "npx prisma generate && npx prisma migrate dev --name "jahanzaib" && npm start"]

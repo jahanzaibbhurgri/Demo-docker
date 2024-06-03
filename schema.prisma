@@ -15,7 +15,10 @@ model permission {
   userId        Int
   roleId        Int  
   name          String  
+  typeOfPermission String[]
   description   String
   createdAt     DateTime
   updatedAt     DateTime
+  
+  @@unique([userId, roleId])
 }
