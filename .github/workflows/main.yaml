@@ -1,0 +1,17 @@
+# .github/workflows/main.yml
+name: Main Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-docker-image.yml
+    with:
+      file: './Permission-Microservice'
+      dockerfile-path: './Permission-Microservice/Dockerfile'
+      image-tag: 'jahanzaibbhurgri/permission:latest'
+
+
