@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/build-docker-image.yaml
+    uses: jahanzaibbhurgri/Demo-Docker-1/.github/workflows/build-docker-image.yaml@master1
     with:
       directory: './Permission-Microservice'
       dockerfile-path: './Permission-Microservice/Dockerfile'
