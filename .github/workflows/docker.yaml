@@ -22,8 +22,7 @@ jobs:
     - name: Build Docker image
       uses: docker/build-push-action@v3
       with:
-        path: ./Permission-Microservice
-        dockerfile: ./Permission-Microservice/Dockerfile
+        file: ./Permission-Microservice/Dockerfile
         load: true
         push: false
         tags: jahanzaibbhurgri/permission:latest
