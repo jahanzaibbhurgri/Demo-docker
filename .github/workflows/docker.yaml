@@ -20,6 +20,7 @@ jobs:
       uses: docker/setup-buildx-action@v1
 
     - name: Build Docker image
+      working-directory: Permission-Microservice
       uses: docker/build-push-action@v3
       with:
         context: ./Permission-Microservice
