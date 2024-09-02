@@ -10,7 +10,7 @@ jobs:
   build:
     uses: ./.github/workflows/build-docker-image.yaml
     with:
-      file: './Permission-Microservice'
+      directory: './Permission-Microservice'
       dockerfile-path: './Permission-Microservice/Dockerfile'
       image-tag: 'jahanzaibbhurgri/permission:latest'
 
