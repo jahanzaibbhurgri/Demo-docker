@@ -19,6 +19,6 @@ jobs:
     - name: Build Docker image
       uses: docker/build-action@v3
       with:
-        context: ./Permission Microservice/dockerfile
+        context: ./Permission-Microservice/Dockerfile
         load: true  
         tags: jahanzaibbhurgri1@gmail.com/permission:latest
