@@ -34,7 +34,4 @@ jobs:
         push: false
         tags: jahanzaibbhurgri/permission:latest
 
-    - name: Extract npm logs
-      run: |
-        docker run --rm jahanzaibbhurgri/permission:latest cat /npm-install.log > npm-install.log
-      
+ 
