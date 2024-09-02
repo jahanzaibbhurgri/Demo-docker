@@ -9,6 +9,10 @@ COPY package*.json ./
 
 RUN npm cache clean --force
 
+RUN docker builder prune
+# Clear npm cache and ensure no leftover files
+RUN npm cache clean --force && rm -rf node_modules && rm -rf ~/.npm && npm install --no-audit
+
 RUN npm install --no-audit
 # Copy the rest of the application code to the container
 COPY . .
