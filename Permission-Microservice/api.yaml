@@ -1,0 +1,141 @@
+openapi: 3.0.0
+info:
+  title: Code Improve API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 1.0.0
+
+servers:
+  - url: https://platform.aladdininformatics.com/permission-service
+
+paths:
+  /api/v1/createPermission:
+    post:
+      summary: Create the permission
+      description: Create a new permission in the system.
+      tags:
+        - PermissionController
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roleId:
+                  type: integer
+                  description: The roleId of the user.
+                name:
+                  type: string
+                  description: The name of the permission.
+                typeOfPermission:
+                  type: array
+                  items:
+                    type: string
+                  description: An array of types such as create, get, update, delete.
+                description:
+                  type: string
+                  description: The description of the permission.
+              required:
+                - roleId
+                - name
+                - typeOfPermission
+                - description
+      responses:
+        '201':
+          description: Permission created successfully.
+        '400':
+          description: Invalid request data.
+        '500':
+          description: An error occurred while creating the permission.
+
+  /api/v1/getPermission:
+    post:
+      summary: Get permissions for a user and role
+      description: Get permissions for a user and role.
+      tags:
+        - PermissionController
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roleId:
+                  type: integer
+                  description: The roleId of the role.
+              required:
+                - roleId
+      responses:
+        '200':
+          description: Permissions retrieved successfully.
+        '400':
+          description: Invalid request data.
+        '500':
+          description: An error occurred while retrieving permissions.
+
+  /api/v1/deletePermission:
+    post:
+      summary: Deletion of the permission
+      description: Deletion of the permission.
+      tags:
+        - PermissionController
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the user.
+              required:
+                - name
+      responses:
+        '200':
+          description: Permission deleted successfully.
+        '401':
+          description: Unable to delete the permission.
+
+  /api/v1/updatePermission:
+    post:
+      summary: Update the permission
+      description: Update the permission.
+      tags:
+        - PermissionController
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roleId:
+                  type: integer
+                  description: The roleId of the user.
+                userId:
+                  type: integer
+                  description: The userId of the user.
+                name:
+                  type: string
+                  description: The name of the user.
+                updatedPermissions:
+                  type: array
+                  items:
+                    type: string
+                  description: An array of types such as create, get, update, delete.
+                description:
+                  type: string
+                  description: The description of the permission.
+              required:
+                - roleId
+                - userId
+                - name
+                - updatedPermissions
+                - description
+      responses:
+        '200':
+          description: Permission updated successfully.
+        '401':
+          description: Unable to update.
