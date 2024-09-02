@@ -1,5 +1,5 @@
 # Use the official Node.js image as the base image
-FROM node:latest as builder
+FROM --platform=linux/amd64 node:21
 
 # Set the working directory inside the container
 WORKDIR /app
