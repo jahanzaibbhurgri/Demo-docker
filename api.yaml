@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 
 servers:
-  - url: http://localhost:30007
+  - url: https://platform.aladdininformatics.com/permission-service
 
 paths:
   /api/v1/createPermission:
@@ -21,9 +21,6 @@ paths:
             schema:
               type: object
               properties:
-                userId:
-                  type: integer
-                  description: The userId of the user.
                 roleId:
                   type: integer
                   description: The roleId of the user.
@@ -39,7 +36,6 @@ paths:
                   type: string
                   description: The description of the permission.
               required:
-                - userId
                 - roleId
                 - name
                 - typeOfPermission
@@ -65,11 +61,11 @@ paths:
             schema:
               type: object
               properties:
-                userId:
+                roleId:
                   type: integer
-                  description: The userId of the user.
+                  description: The roleId of the role.
               required:
-                - userId
+                - roleId
       responses:
         '200':
           description: Permissions retrieved successfully.
@@ -91,18 +87,10 @@ paths:
             schema:
               type: object
               properties:
-                roleId:
-                  type: integer
-                  description: The roleId of the user.
-                userId:
-                  type: integer
-                  description: The userId of the user.
                 name:
                   type: string
                   description: The name of the user.
               required:
-                - roleId
-                - userId
                 - name
       responses:
         '200':

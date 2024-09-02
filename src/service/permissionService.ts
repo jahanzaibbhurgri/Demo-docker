@@ -6,7 +6,7 @@ import { int } from 'aws-sdk/clients/datapipeline';
 
 const prisma = new PrismaClient();
 
-export const createPermission = async (data: { userId: number, roleId: number, name: string, description: string,typeOfPermission:string[]}) => {
+export const createPermission = async (data: {  roleId: number, name: string, description: string,typeOfPermission:string[]}) => {
   try {
     // const permissionExisted = await prisma.permission.findFirst({
     //   where: {
@@ -21,9 +21,10 @@ export const createPermission = async (data: { userId: number, roleId: number, n
     //   throw new Error("Permission already exists with the same userId, roleId, and name");
     // }
     
+    
+
     const permission = await prisma.permission.create({
       data: {
-        userId: data.userId,
         roleId: data.roleId,
         name: data.name,
         typeOfPermission: {set:data.typeOfPermission},
@@ -44,15 +45,15 @@ export const createPermission = async (data: { userId: number, roleId: number, n
   }
 };
 
-export const getPermission  = async (data: {userId:number}) => {
+export const getPermission  = async (data: {roleId:number}) => {
   try {
-    if (!data.userId ) {
+    if (!data.roleId ) {
       throw new Error("Please provide both userId");
     }
 
     const permissions = await prisma.permission.findMany({
       where: {
-        userId: data.userId
+        roleId: data.roleId
       }
     });
    return {
@@ -67,13 +68,11 @@ export const getPermission  = async (data: {userId:number}) => {
   }
 };
 
-export const deletePermission = async (data: { userId: number, roleId: number, name: string }) => {
+export const deletePermission = async (data: { name: string }) => {
   try {
     const permission = await prisma.permission.findFirst({
       where: {
-        userId: data.userId,
-        roleId: data.roleId,
-        name: data.name,
+        name: data.name
       }
     });
 
@@ -99,17 +98,15 @@ export const deletePermission = async (data: { userId: number, roleId: number, n
 };
 
 export const updatePermission = async (data: {
-  userId: number;
   roleId: number;
   name: string;
-  updatedPermissions: string[];
+  Permissions: string[];
   description: string;
 }) => {
   try {
     const permissionExisted = await prisma.permission.findFirst({
       where: {
         roleId: data.roleId,
-        userId: data.userId,
         name: data.name,
       }
     });
@@ -120,13 +117,11 @@ export const updatePermission = async (data: {
 
     const permission = await prisma.permission.update({
       where: {
-        userId_roleId: {
-          userId: data.userId,
-          roleId: data.roleId,
-        }
+        id: permissionExisted.id
       },
       data: {
-        typeOfPermission: data.updatedPermissions, // Assuming this is the correct field to update
+        name: data.name,
+        typeOfPermission: data.Permissions, 
         description: data.description,
         updatedAt: new Date()
       }
@@ -138,7 +133,39 @@ export const updatePermission = async (data: {
       data: permission
     };
   } catch (error) {
-    console.error('Error in updating the permission of the user', error);
+    console.error('Error in updating the permission of the user:', error);
     throw new Error('Error in updating the permission of the user');
   }
 };
+
+export const findPermissionByName = async(data:{ roleId:number}) => {
+  try
+  {
+    if(!data.roleId ||data.roleId < 0 )
+    {
+      throw new Error("roleId is not valid");
+    }
+
+    const permissionById = await prisma.permission.findMany({
+      where: {
+         id: data.roleId
+      },
+      select: {
+        name: true,
+        typeOfPermission: true
+      }
+    });
+
+  return  {
+    message: "All roles associated with the UserId",
+    rolesById: permissionById
+   }
+
+  }
+  catch(error)
+  {
+    console.error("error in finding role by id",error);
+    throw new Error("Failed to find the role by id")
+  }
+
+}
