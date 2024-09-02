@@ -9,9 +9,7 @@ COPY package*.json ./
 
 RUN npm cache clean --force
 
-
-# Install dependencies, including devDependencies
-RUN npm install --no-audit
+RUN npm ci --no-audit
 
 # Copy the rest of the application code to the container
 COPY . .
