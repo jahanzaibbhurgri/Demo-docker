@@ -17,8 +17,9 @@ jobs:
       uses: docker/setup-buildx-action@v1
 
     - name: Build Docker image
-      uses: docker/build-action@v3
+      uses: docker/build-push-action@v3
       with:
-        context: ./Permission-Microservice/Dockerfile
+        context: ./Permission-Microservice
+        dockerfile: ./Permission-Microservice/Dockerfile
         load: true  
-        tags: jahanzaibbhurgri1@gmail.com/permission:latest
+        tags: jahanzaibbhurgri/permission:latest
